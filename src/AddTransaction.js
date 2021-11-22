@@ -36,7 +36,30 @@ const AddTransaction = () => {
   const newUser = () => {};
   const saveUser = () => {
     console.log(transaction);
+    const saveTransaction = async () => {
+      const response = await fetch(
+        "https://service-krinsi.herokuapp.com/trans/getTransactions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1ODQwNjcsImV4cCI6MTYzNzU4NzY2N30.OlOhUdxEhkWdCgyIT9_Syd2_XiWB8KwyqU-qkbLo_LA`,
+          },
+          body: JSON.stringify(transaction),
+        }
+      );
+      console.log(response)
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
+    };
+    saveTransaction().catch((err) => {
+      console.log(err);
+    });
   };
+
   return (
     <div className="submit-form">
       {submitted ? (
