@@ -33,17 +33,19 @@ const AddTransaction = () => {
     const { name, value } = event.target;
     setTransaction({ ...transaction, [name]: value });
   };
-  const newUser = () => {};
+  const newUser = () => { };
   const saveUser = () => {
     console.log(transaction);
     const saveTransaction = async () => {
       const response = await fetch(
-        "https://service-krinsi.herokuapp.com/trans/getTransactions",
+        "https://service-krinsi.herokuapp.com/trans/newTransaction",
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1ODQwNjcsImV4cCI6MTYzNzU4NzY2N30.OlOhUdxEhkWdCgyIT9_Syd2_XiWB8KwyqU-qkbLo_LA`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1OTY3MjUsImV4cCI6MTYzNzYwMDMyNX0.ovpHg7jf6NIHJ-QXXX0lHzhgl0gidoc_2xQeJmU5Zt8`,
+            'Content-Type': 'application/json'
           },
+
           body: JSON.stringify(transaction),
         }
       );

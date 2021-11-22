@@ -12,7 +12,7 @@ const Transactions = () => {
         {
           method: "GET",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1ODQwNjcsImV4cCI6MTYzNzU4NzY2N30.OlOhUdxEhkWdCgyIT9_Syd2_XiWB8KwyqU-qkbLo_LA`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1OTY3MjUsImV4cCI6MTYzNzYwMDMyNX0.ovpHg7jf6NIHJ-QXXX0lHzhgl0gidoc_2xQeJmU5Zt8`,
           },
         }
       );
