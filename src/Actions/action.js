@@ -1,7 +1,8 @@
 const HOST_URL = "https://service-krinsi.herokuapp.com/trans/";
 const Bearer_token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4Mzk2NDcsImV4cCI6MTYzNzg0MzI0N30.NXsNAOuBW1gDg_DN8tCAfMCvUNGI3ncYk34FiobDX6Q";
-export const fetchTransactions = async () => {
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4NDQyMjgsImV4cCI6MTYzNzg0NzgyOH0.0iMFYvDhHFTUtNju1vGgqBQoE_Mel-RBZ0xUYCBFrak";
+
+  export const fetchTransactions = async () => {
   const response = await fetch(HOST_URL + "getTransactions", {
     method: "GET",
     headers: {
