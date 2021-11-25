@@ -32,11 +32,6 @@ const Transactions = () => {
     );
     setFilterTransaction(filtered);
   };
-  // const findByTitle = (event) => {
-  //   setSearchTitle(event.target.value);
-  // };
-  //   const openUser = (event) => {};
-  //   const deleteUser = (event) => {};
   return (
     <div className="list row">
       <div className="col-md-8">
