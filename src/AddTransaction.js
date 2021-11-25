@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { httpRequest } from "./Actions/action";
 const AddTransaction = () => {
   const getDate = () => {
     let today = new Date();
@@ -21,7 +21,7 @@ const AddTransaction = () => {
     weight: 0,
     price: 0,
     payment_term: "",
-    amount: 123,
+    amount: 0,
     date_of_trans: getDate(),
     type_of_trans: "SALE",
   };
@@ -33,33 +33,23 @@ const AddTransaction = () => {
     const { name, value } = event.target;
     setTransaction({ ...transaction, [name]: value });
   };
-  const newUser = () => { };
+  const newUser = () => {};
   const saveUser = () => {
     console.log(transaction);
-    const saveTransaction = async () => {
-      const response = await fetch(
-        "https://service-krinsi.herokuapp.com/trans/newTransaction",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1OTY3MjUsImV4cCI6MTYzNzYwMDMyNX0.ovpHg7jf6NIHJ-QXXX0lHzhgl0gidoc_2xQeJmU5Zt8`,
-            'Content-Type': 'application/json'
-          },
 
-          body: JSON.stringify(transaction),
-        }
-      );
-      console.log(response)
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      const responseData = await response.json();
-      console.log(responseData);
-    };
-    saveTransaction().catch((err) => {
-      console.log(err);
-    });
+    httpRequest(
+      {
+        resource: "newTransaction",
+        method: "POST",
+      },
+      transaction
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -107,7 +97,7 @@ const AddTransaction = () => {
               className="form-control"
               id="weight"
               required
-              value={transaction.email}
+              value={transaction.weight}
               onChange={handleInputChange}
               name="weight"
             />
@@ -119,9 +109,9 @@ const AddTransaction = () => {
               className="form-control"
               id="price"
               required
-              value={transaction.email}
+              value={transaction.price}
               onChange={handleInputChange}
-              name="Price"
+              name="price"
             />
           </div>
           <div className="form-group">
@@ -131,7 +121,7 @@ const AddTransaction = () => {
               className="form-control"
               id="Payment_term"
               required
-              value={transaction.job}
+              value={transaction.payment_term}
               onChange={handleInputChange}
               name="payment_term"
             />
@@ -144,7 +134,7 @@ const AddTransaction = () => {
               className="form-control"
               id="type_of_trans"
               required
-              value={transaction.job}
+              value={transaction.type_of_trans}
               onChange={handleInputChange}
               name="type_of_trans"
             />

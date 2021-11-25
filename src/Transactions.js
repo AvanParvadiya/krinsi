@@ -1,34 +1,45 @@
 import { useEffect, useState } from "react";
-
+import { httpRequest } from "./Actions/action";
 const Transactions = () => {
   //   const storeCtx = useContext(StoreContext);
   const [transactions, setTransaction] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [filterTransaction, setFilterTransaction] = useState([]);
+
   useEffect(() => {
-    const fetchTransactions = async () => {
-      const response = await fetch(
-        "https://service-krinsi.herokuapp.com/trans/getTransactions",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc1OTY3MjUsImV4cCI6MTYzNzYwMDMyNX0.ovpHg7jf6NIHJ-QXXX0lHzhgl0gidoc_2xQeJmU5Zt8`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
+    // const fetchTransactions = async () => {
+    //   const response = await fetch(
+    //     "https://service-krinsi.herokuapp.com/trans/getTransactions",
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4MzUxOTMsImV4cCI6MTYzNzgzODc5M30.REoR5YZl6VNjEW5NDzENpId-eDz_8pUQazEBMx_Jmzc`,
+    //       },
+    //     }
+    //   );
+    //   if (!response.ok) {
+    //     throw new Error("Something went wrong");
+    //   }
 
-      const responseData = await response.json();
-      console.log(responseData.Transactions);
-      setTransaction(responseData.Transactions);
-      setFilterTransaction(responseData.Transactions);
-    };
+    //   const responseData = await response.json();
+    //   console.log(responseData.Transactions);
+    //   setTransaction(responseData.Transactions);
+    //   setFilterTransaction(responseData.Transactions);
+    // };
 
-    fetchTransactions().catch((err) => {
-      console.log(err);
-    });
+    httpRequest({
+      resource: "getTransactions",
+      method: "GET",
+    })
+      .then((res) => {
+        console.log(res.Transactions);
+        setTransaction(res.Transactions);
+        setFilterTransaction(res.Transactions);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
   }, []);
   //   storeCtx.addTransaction(transactions);
   const onChangeSearchTitle = (event) => {
