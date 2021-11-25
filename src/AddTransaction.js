@@ -50,6 +50,7 @@ const AddTransaction = () => {
       .catch((err) => {
         console.log(err);
       });
+    setSubmitted(true);
   };
 
   return (

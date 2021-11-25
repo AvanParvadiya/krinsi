@@ -18,7 +18,6 @@ export const fetchTransactions = async () => {
   //   setFilterTransaction(responseData.Transactions);
   return responseData.Transactions;
 };
-//  fetchTransactions;
 
 export const saveTransaction = async (transaction) => {
   const response = await fetch(HOST_URL + "newTransaction", {
@@ -39,10 +38,8 @@ export const saveTransaction = async (transaction) => {
   console.log(responseData);
   return responseData;
 };
-// export  saveTransaction
 
-export const httpRequest = async (API_INFO, bodyData ) => {
-  console.log(API_INFO);
+export const httpRequest = async (API_INFO, bodyData) => {
   const response = await fetch(
     HOST_URL + (API_INFO.resource ? API_INFO.resource : "getTransactions"),
     {
@@ -57,6 +54,6 @@ export const httpRequest = async (API_INFO, bodyData ) => {
     throw new Error("Some thing went wrong");
   }
   const responseData = await response.json();
-//   console.log(responseData);
+  //   console.log(responseData);
   return responseData;
 };

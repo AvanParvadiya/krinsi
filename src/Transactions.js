@@ -7,45 +7,22 @@ const Transactions = () => {
   const [filterTransaction, setFilterTransaction] = useState([]);
 
   useEffect(() => {
-    // const fetchTransactions = async () => {
-    //   const response = await fetch(
-    //     "https://service-krinsi.herokuapp.com/trans/getTransactions",
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4MzUxOTMsImV4cCI6MTYzNzgzODc5M30.REoR5YZl6VNjEW5NDzENpId-eDz_8pUQazEBMx_Jmzc`,
-    //       },
-    //     }
-    //   );
-    //   if (!response.ok) {
-    //     throw new Error("Something went wrong");
-    //   }
-
-    //   const responseData = await response.json();
-    //   console.log(responseData.Transactions);
-    //   setTransaction(responseData.Transactions);
-    //   setFilterTransaction(responseData.Transactions);
-    // };
-
     httpRequest({
       resource: "getTransactions",
       method: "GET",
     })
       .then((res) => {
-        console.log(res.Transactions);
         setTransaction(res.Transactions);
         setFilterTransaction(res.Transactions);
       })
       .catch((err) => {
         console.log(err);
       });
-    
   }, []);
   //   storeCtx.addTransaction(transactions);
   const onChangeSearchTitle = (event) => {
     setSearchTitle(event.target.value);
     const filterWord = event.target.value;
-    console.log(filterWord.toUpperCase());
     const filtered = transactions.filter(
       (transaction) =>
         transaction.party_name
@@ -53,11 +30,12 @@ const Transactions = () => {
           .includes(filterWord.toUpperCase()) ||
         transaction.broker_name.toUpperCase().includes(filterWord.toUpperCase())
     );
-    console.log(filtered);
+
+    setFilterTransaction(filtered);
   };
-  const findByTitle = (event) => {
-    setSearchTitle(event.target.value);
-  };
+  // const findByTitle = (event) => {
+  //   setSearchTitle(event.target.value);
+  // };
   //   const openUser = (event) => {};
   //   const deleteUser = (event) => {};
   return (
@@ -72,13 +50,13 @@ const Transactions = () => {
             onChange={onChangeSearchTitle}
           />
           <div className="input-group-append">
-            <button
+            {/* <button
               className="btn btn-outline-secondary"
               type="button"
               onClick={findByTitle}
             >
               Search
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
