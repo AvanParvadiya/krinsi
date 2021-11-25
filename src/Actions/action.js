@@ -50,7 +50,7 @@ export const httpRequest = async (API_INFO, bodyData ) => {
       headers: {
         Authorization: `Bearer ` + Bearer_token,
       },
-      body: !bodyData && API_INFO.method==="GET" ? null : JSON.stringify(bodyData),
+      body: !bodyData ? null : JSON.stringify(bodyData),
     }
   );
   if (!response.ok) {
