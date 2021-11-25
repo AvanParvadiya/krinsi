@@ -54,6 +54,5 @@ export const httpRequest = async (API_INFO, bodyData) => {
     throw new Error("Some thing went wrong");
   }
   const responseData = await response.json();
-  //   console.log(responseData);
   return responseData;
 };

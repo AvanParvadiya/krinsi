@@ -30,7 +30,6 @@ const Transactions = () => {
           .includes(filterWord.toUpperCase()) ||
         transaction.broker_name.toUpperCase().includes(filterWord.toUpperCase())
     );
-
     setFilterTransaction(filtered);
   };
   // const findByTitle = (event) => {
@@ -45,7 +44,7 @@ const Transactions = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by first name / last name / email"
+            placeholder="Search by Broker name / party name"
             value={searchTitle}
             onChange={onChangeSearchTitle}
           />
