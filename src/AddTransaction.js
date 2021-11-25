@@ -18,10 +18,10 @@ const AddTransaction = () => {
     // job: "",
     broker_name: "",
     party_name: "",
-    weight: 0,
+    weight: 0, // float
     price: 0,
-    payment_term: "",
-    amount: 0,
+    payment_term: "", // integer
+    amount: 0, // float
     date_of_trans: getDate(),
     type_of_trans: "SALE",
   };
@@ -35,22 +35,43 @@ const AddTransaction = () => {
   };
   const newUser = () => {};
   const saveUser = () => {
+    transaction.amount = parseFloat(transaction.amount);
+    transaction.weight = parseFloat(transaction.weight);
+    transaction.payment_term = parseInt(transaction.payment_term);
     console.log(transaction);
-
-    httpRequest(
-      {
-        resource: "newTransaction",
-        method: "POST",
-      },
-      transaction
-    )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setSubmitted(true);
+    const saveTransaction = async () => {
+      const response = await fetch(
+        "https://service-krinsi.herokuapp.com/trans/newTransaction",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4NTI0MTIsImV4cCI6MTYzNzg1NjAxMn0.HV0b0SnJS2Z_XQP6dqBBdQf26mF9ckoxuAYScPjMM6Y`,
+          },
+          body: JSON.stringify(transaction),
+        }
+      );
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+    };
+    saveTransaction().catch((err) => {
+      console.log(err);
+    });
+    // httpRequest(
+    //   {
+    //     resource: "newTransaction",
+    //     method: "POST",
+    //   },
+    //   transaction
+    // )
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // setSubmitted(true);
   };
 
   return (
