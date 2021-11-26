@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { httpRequest } from "./Actions/action";
+import AuthContext from "./store/auth-context";
 const AddTransaction = () => {
+  const authCtx = useContext(AuthContext);
   const getDate = () => {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, "0");
@@ -11,11 +13,6 @@ const AddTransaction = () => {
     return today;
   };
   const initialTransactionState = {
-    // id: null,
-    // bro: "",
-    // last_name: "",
-    // email: "",
-    // job: "",
     broker_name: "",
     party_name: "",
     weight: 0, // float
@@ -33,53 +30,56 @@ const AddTransaction = () => {
     const { name, value } = event.target;
     setTransaction({ ...transaction, [name]: value });
   };
-  const newUser = () => {};
   const saveUser = () => {
     transaction.amount = parseFloat(transaction.amount);
     transaction.weight = parseFloat(transaction.weight);
     transaction.payment_term = parseInt(transaction.payment_term);
     console.log(transaction);
-    const saveTransaction = async () => {
-      const response = await fetch(
-        "https://service-krinsi.herokuapp.com/trans/newTransaction",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdrbGF0aGl5YUBnbWFpbC5jb20iLCJ1c2VySWQiOiI2MTk4OTRlNjY0M2MxYTA1YTRmNDFkNTIiLCJpYXQiOjE2Mzc4NTI0MTIsImV4cCI6MTYzNzg1NjAxMn0.HV0b0SnJS2Z_XQP6dqBBdQf26mF9ckoxuAYScPjMM6Y`,
-          },
-          body: JSON.stringify(transaction),
-        }
-      );
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-    };
-    saveTransaction().catch((err) => {
-      console.log(err);
-    });
-    // httpRequest(
-    //   {
-    //     resource: "newTransaction",
-    //     method: "POST",
-    //   },
-    //   transaction
-    // )
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // setSubmitted(true);
-  };
+    let success;
+    httpRequest(
+      {
+        resource: "newTransaction",
+        method: "POST",
+        bearer_token: authCtx.token,
+      },
+      transaction
+    )
+      .then((res) => {
+        console.log(res);
+        success =
+          res.message === "Transaction Created Successfully !! "
+            ? res.message
+            : undefined;
 
+        if (!success) {
+          setSubmitted(false);
+        } else {
+          setSubmitted(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const newTransaction = () => {
+    setSubmitted(false);
+    setTransaction({
+      broker_name: "",
+      party_name: "",
+      weight: 0, // float
+      price: 0,
+      payment_term: "", // integer
+      amount: 0, // float
+      date_of_trans: getDate(),
+      type_of_trans: "SALE",
+    });
+  };
   return (
     <div className="submit-form">
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newUser}>
+          <button className="btn btn-success" onClick={newTransaction}>
             Add
           </button>
         </div>
@@ -122,6 +122,19 @@ const AddTransaction = () => {
               value={transaction.weight}
               onChange={handleInputChange}
               name="weight"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="weight">Amount</label>
+            <input
+              type="number"
+              className="form-control"
+              id="amount"
+              required
+              value={transaction.amount}
+              onChange={handleInputChange}
+              name="amount"
             />
           </div>
           <div className="form-group">
