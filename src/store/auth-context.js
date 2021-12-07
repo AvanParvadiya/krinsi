@@ -52,7 +52,7 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token) => {
     setToken(token);
-    const expirationTime=30
+    const expirationTime=3600
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
     const remainTime = calculateRemainingTime(expirationTime);
