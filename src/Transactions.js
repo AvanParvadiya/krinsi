@@ -25,7 +25,7 @@ const Transactions = () => {
       });
 
     setIsLoading(false);
-  }, [isLoading,authCtx.token]);
+  }, [isLoading, authCtx.token]);
   const onChangeSearchTitle = (event) => {
     setSearchTitle(event.target.value);
     const filterWord = event.target.value;

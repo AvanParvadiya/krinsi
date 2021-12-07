@@ -50,7 +50,7 @@ function App() {
           <Switch>
             <Route exact path="/">
               {!isLoggedIn && <AuthForm />}
-              {isLoggedIn && <Redirect to="/transactions" />}
+              {isLoggedIn && <Transactions/>}
             </Route>
             <Route exact path="/transactions">
               {isLoggedIn && <Transactions />}

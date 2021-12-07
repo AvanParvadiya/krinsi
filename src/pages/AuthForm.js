@@ -2,11 +2,11 @@ import { useContext, useRef, useState } from "react";
 import AuthContext from "../store/auth-context";
 import classes from "./AuthForm.module.css";
 import { httpLogin } from "../Actions/action";
-// import { useHistory } from "react-router";
+import { useHistory } from "react-router";
 
 export const AuthForm = (props) => {
   const emailRef = useRef("");
-  // const history = useHistory();
+  const history = useHistory();
   const passRef = useRef("");
   const [emailError, setEmailError] = useState(undefined);
   const [passwordError, setPasswordError] = useState(undefined);
@@ -34,8 +34,8 @@ export const AuthForm = (props) => {
       })
         .then((res) => {
           authCtx.login(res.token);
-          // history.replace("/");
-          window.location.href="/"
+          history.replace("/");
+         
         })
         .catch((err) => {
           console.log(err);
